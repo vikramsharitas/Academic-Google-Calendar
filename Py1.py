@@ -4,13 +4,16 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 
 import getpass
 
 import csv
 
 # initiate chrome driver
-driver = webdriver.Chrome('C:\\chromedriver.exe')
+options = Options()
+options.headless = True
+driver = webdriver.Chrome('C:\\chromedriver.exe', options=options)
 # open erp
 driver.get('http://10.2.102.21:9000/psp/hcsprod/?cmd=login&languageCd=ENG')
 # logging in
