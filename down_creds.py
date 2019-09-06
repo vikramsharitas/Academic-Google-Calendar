@@ -8,6 +8,16 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 print(dir_path)
+def headless_download(driver):
+    driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
+    params = {
+        'cmd': 'Page.setDownloadBehavior',
+        'params': {
+            'behavior': 'allow',
+            'downloadPath': dir_path
+        }
+    }
+    driver.execute("send_command", params)
 
 options = webdriver.ChromeOptions()
 # options.add_argument(
@@ -17,9 +27,8 @@ options.add_argument(
 prefs = {"download.default_directory": dir_path}
 options.add_experimental_option('prefs', prefs)
 options.headless = True
-
-# options.headless = True
 driver = webdriver.Chrome('chromedriver.exe', options=options)
+headless_download(driver)
 driver.get(
     'https://console.developers.google.com/henhouse/?pb=%5B%22hh-0%22,%22calendar%22,null,%5B%5D,%22https:%2F%2Fdevelopers.google.com%22,null,%5B%5D,null,%22Enable%20the%20Google%20Calendar%20API%22,1,null,%5B%5D,false,false,null,null,null,null,false,null,false,false,null,null,null,%22OTHER%22,null,%22Quickstart%22,true,%22Quickstart%22,null,null,false%5D')
 WebDriverWait(driver, 30).until(EC.presence_of_element_located(
