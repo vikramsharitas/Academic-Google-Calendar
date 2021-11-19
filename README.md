@@ -1,4 +1,4 @@
-# AcademicGoogle Calendar
+# Academic Google Calendar
 Run run_windows.bat and enter username and password to ERP if on Windows.<br/>
 Windows also requires python 3 to be installed.
 
